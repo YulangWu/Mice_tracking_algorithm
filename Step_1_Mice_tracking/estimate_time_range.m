@@ -3,7 +3,7 @@ function [] = estimate_time_range(folder_dir, fps, time_par, width, height, raw_
     % of experiments
     
     % Load the fixation points to restrict the estimation within ROI.
-    load(fixation_points_filename)
+    load(fullfile(folder_dir(1).folder,fixation_points_filename))
     disp('The file containing the coordinates of the fixation points has been loaded!');
 
     % The range of time in fps to get maximum amplitude from frames corresponding
@@ -36,22 +36,22 @@ function [] = estimate_time_range(folder_dir, fps, time_par, width, height, raw_
     index = 0;
 
     warning = 0;
-    if isfile(start_end_time_filename)
-        warning = input([start_end_time_filename ' exists, do you want to overwrite the existing file? yes 1 no 0\n']);
+    if isfile(fullfile(folder_dir(m).folder,start_end_time_filename))
+        warning = input([fullfile(folder_dir(m).folder,start_end_time_filename) ' exists, do you want to overwrite the existing file? yes 1 no 0\n']);
         if ~warning
             input('Press "Enter" to skip time range estimation step and continue!\n','s')
             return
         end
-        load(start_end_time_filename)
+        load(fullfile(folder_dir(m).folder,start_end_time_filename))
     end
 
     if warning
-        aa = input(['The ' start_end_time_filename ' will be overwritten, press "Enter" to continue!\n'],'s');
+        aa = input(['The ' fullfile(folder_dir(m).folder,start_end_time_filename) ' will be overwritten, press "Enter" to continue!\n'],'s');
     end
 
     for m = 1 : length(folder_dir)
         if folder_dir(m).name ~= "." && folder_dir(m).name ~= ".."
-            subfolder_dir = dir(fullfile([folder_dir(m).folder '/' folder_dir(m).name],"*Pro.mp4"));
+            subfolder_dir = dir(fullfile([folder_dir(m).folder '/' folder_dir(m).name],raw_video_name_contents));
             for n = 1 : length(subfolder_dir)
                 if subfolder_dir(n).name ~= "." && subfolder_dir(n).name ~= ".."
                     index = index + 1;
@@ -113,7 +113,7 @@ function [] = estimate_time_range(folder_dir, fps, time_par, width, height, raw_
         end
     end
 
-    save (start_end_time_filename,"start_point_vec","end_point_vec","frame_amp_gram");
+    save(fullfile(folder_dir(m).folder,start_end_time_filename),"start_point_vec","end_point_vec","frame_amp_gram");
 
 
 end

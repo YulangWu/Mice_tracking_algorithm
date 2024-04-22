@@ -2,9 +2,9 @@ function [] = crop_video(folder_dir,fixation_points_filename,start_end_time_file
     % This function crops videos in both spatial and temporal dimensions
     
     % Load the fixation points correpsonding to the ROI
-    load(fixation_points_filename)
+    load(fullfile(folder_dir(1).folder,fixation_points_filename))
     % Load the start and end time points corresponding to the range of time
-    load(start_end_time_filename)
+    load(fullfile(folder_dir(1).folder,start_end_time_filename))
 
 
     index = 0;

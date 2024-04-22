@@ -3,8 +3,8 @@ function [] = pick_ROI(folder_dir, raw_video_name_contents, fixation_points_file
     % lower-right corner)
     
     % Check whether the fixation_points_filename exists
-    if exist(fixation_points_filename, 'file') == 2
-        disp([fixation_points_filename ' exists!'])
+    if exist(fullfile(folder_dir(1).folder,fixation_points_filename), 'file') == 2
+        disp([fullfile(folder_dir(1).folder,fixation_points_filename) ' exists!'])
         input('Press "Enter" to skip fixation points picking step and continue!\n','s')
         return;
     end
@@ -49,7 +49,7 @@ function [] = pick_ROI(folder_dir, raw_video_name_contents, fixation_points_file
         end
     end
     disp('Fixation picking is done. Please close the figure!')
-    save ("fixation_points.mat","x_vec","y_vec");
+    save (fullfile(folder_dir(m).folder,fixation_points_filename),"x_vec","y_vec");
 
 end
 

@@ -27,7 +27,7 @@ smooth_span_size = 9;  % smooth the raw velocity
 mouse_max_size = 10000; % The maximum size of mice in pixel
 movement_threshold = 1.6; %1.5 is a good enough!
 
-save('global_parameters.mat',"main_dir","spatial_ratio","width",...
+save(fullfile(main_dir,'global_parameters.mat'),"main_dir","spatial_ratio","width",...
       "height","fps","fixation_points_filename","start_end_time_filename",...
       "raw_video_name_contents","cropped_video_name_contents","time_par",...
       "mouse_size_threshold","mouse_max_speed","smooth_span_size",...
@@ -52,7 +52,7 @@ close all;
 % ==============
 disp('2. Estimate the start and end time of each video')
 estimate_time_range(folder_dir, fps, time_par, width, height, raw_video_name_contents, fixation_points_filename, start_end_time_filename)
-load(start_end_time_filename)
+load(fullfile(main_dir,start_end_time_filename))
 disp('The file containing the start and end time of each video has been loaded!');
 close all;
 % -------------------------------------------------------------------------
